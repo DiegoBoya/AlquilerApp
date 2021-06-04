@@ -5,11 +5,13 @@ import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Imag
 //import Barrita from './Barrita';
 import portada from './assets/portada.png'
 import * as ImagePicker from 'expo-image-picker'
+import Favorito from './Components/Favorito';
 
 
 export default function App() {
 
   const [autos, setAutos] = useState([]);
+  
   //const [filtro, setFiltro] = useState("");
 
   useEffect(() => {
@@ -35,22 +37,7 @@ export default function App() {
   }
 
 
-  let opeImagePickerAsync = async () => {
-    //pide permisos al usario para iniciar la visualizacion de la galeria. 
-    // si el usuario acepta, esto retorna true, sino , false
-    let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
-    if(permissionResult.granted === false){
-      return alert('los permisos son requeridos');
-    }
-
-    const pickRessult = await ImagePicker.launchImageLibraryAsync()
-    
-
-    if(permissionResult.granted === true){
-      return ;
-    }
-  }
 
   return (
     <View style={styles.container}>
@@ -60,7 +47,6 @@ export default function App() {
       <Image source={{uri: portada}}
       style={styles.foto}
       />
-
 
       <Button
         title="primerBoton"
