@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import Auto from './Components/Auto';
+import Estacionamiento from './Components/Estacionamiento';
 import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image } from 'react-native';
 //import Barrita from './Barrita';
 import portada from './assets/portada.png'
@@ -11,6 +12,7 @@ import Favorito from './Components/Favorito';
 export default function App() {
 
   const [autos, setAutos] = useState([]);
+  const [estacionamientos, setEstacionamientos] = useState([]);
   
   //const [filtro, setFiltro] = useState("");
 
@@ -18,6 +20,9 @@ export default function App() {
     buscarAutos();
   }, []);
 
+  useEffect(() => {
+    mostrarEstacionamientos();
+  }, []);
 
 
   /*  const ingresarFiltro = (event) => {
@@ -36,7 +41,17 @@ export default function App() {
       .catch(error => console.log('Ocurrio un error' + error));
   }
 
-
+  function mostrarEstacionamientos() {
+    const est = fetch('http://localhost:3000/api/estacionamientos');
+    //'/api/estacionamientos'
+    return est
+      .then(res => res.json())
+      .then(json => {
+        console.log('la busqueda de estacionamientos' + json);
+        setEstacionamientos(json);
+      })
+      .catch(error => console.log('Ocurrio un error' + error));
+  }
 
 
   return (
@@ -60,6 +75,10 @@ export default function App() {
       >
         <Text style={styles.buttonText}> el touchable </Text>
       </TouchableOpacity>
+
+      {estacionamientos.map(est => (
+        <Estacionamiento key={est._id} name={est.name} />
+      ))}
 
       {autos.map(auto => (
         <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} id={auto._id} />
