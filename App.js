@@ -16,7 +16,6 @@ import Home from './screens/home';
 import Favoritos from './screens/favoritos';
 
 
-
 export default function App() {
 
   const Stack = createStackNavigator();
@@ -52,6 +51,7 @@ export default function App() {
       setUserToken(null);
       setIsLoading(false);
     }
+
   }));
   
   useEffect(() =>{
@@ -86,7 +86,6 @@ export default function App() {
     }
     </NavigationContainer>
     </AuthContext.Provider>
-    
   );
   // const [autos, setAutos] = useState([]);
   // //const [filtro, setFiltro] = useState("");
