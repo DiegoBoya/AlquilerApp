@@ -10,7 +10,7 @@ export default function ScreenHome({navigation}) {
           
       <View style={{alignItems:'center'}}>
         <Text style={{flex: 1, alignSelf:'center', fontSize:35}}>Aca vendrian los estacionamientos.</Text>
-          <Button  onPress={()=>{navigation.navigate('Autos')}} title="Autos"/>
-          <Button onPress={()=>{navigation.navigate('Favoritos')}} title="Favoritos"/>
+          <Button  onPress={()=>{navigation.navigate('ScreenAutos')}} title="Autos"/>
+          <Button onPress={()=>{navigation.navigate('ScreenFavoritos')}} title="Favoritos"/>
         </View>
   );}

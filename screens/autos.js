@@ -10,11 +10,9 @@ import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Imag
 //import * as ImagePicker from 'expo-image-picker';
 
 
-
-
 export default function ScreenAutos({navigation, route}) {
-    const Stack = createStackNavigator();
-const [autos, setAutos] = useState([]);
+  const Stack = createStackNavigator();
+  const [autos, setAutos] = useState([]);
 
   function buscarAutos() {
     const aut = fetch('http://localhost:3000/api/autos');

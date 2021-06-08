@@ -17,13 +17,11 @@ import ScreenFavoritos from './screens/favoritos';
 
 
 export default function App() {
-
   const Stack = createStackNavigator();
   const [isLoading , setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
   
   const authContext = useMemo(()=>({
-
     login: async (username, password)=>{
        const requestOptions = {
          method: 'post',
@@ -72,14 +70,14 @@ export default function App() {
       {/* En "initialRouteName={}" podes poner la página a la que se vuelve con el "back" básicamente. */}
       {userToken == null ?( 
       <Stack.Navigator initialRouteName={"ScreenLogin"}>
-        <Stack.Screen name="ScreenLogin" component={ScreenLogin}/>
-        <Stack.Screen name="ScreenRegistro" component={ScreenRegistro}/>
+        <Stack.Screen name="ScreenLogin" component={ScreenLogin} options={{ title: 'Login' }}/>
+        <Stack.Screen name="ScreenRegistro" component={ScreenRegistro} options={{ title: 'Registro' }}/>
       </Stack.Navigator>
       ):(
         <Stack.Navigator initialRouteName={"ScreenHome"}>
-        <Stack.Screen name="ScreenHome" component={ScreenHome}/>
-        <Stack.Screen name="ScreenAutos" component={ScreenAutos}/>
-        <Stack.Screen name="ScreenFavoritos" component={ScreenFavoritos}/>
+        <Stack.Screen name="ScreenHome" component={ScreenHome} options={{ title: 'Home' }}/>
+        <Stack.Screen name="ScreenAutos" component={ScreenAutos} options={{ title: 'Autos' }}/>
+        <Stack.Screen name="ScreenFavoritos" component={ScreenFavoritos} options={{ title: 'Favoritos' }}/>
       </Stack.Navigator>
       )
     }
@@ -157,8 +155,3 @@ const styles = StyleSheet.create({
     color: '#fff'
   }
 });
-
-
-
-
-
