@@ -9,11 +9,11 @@ import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Imag
 import {AuthContext} from './Components/Context';
 import portada from './assets/portada.png';
 import * as ImagePicker from 'expo-image-picker';
-import Registro from './screens/registro';
-import Login from './screens/login';
-import Autos from './screens/autos';
-import Home from './screens/home';
-import Favoritos from './screens/favoritos';
+import ScreenRegistro from './screens/registro';
+import ScreenLogin from './screens/login';
+import ScreenAutos from './screens/autos';
+import ScreenHome from './screens/home';
+import ScreenFavoritos from './screens/favoritos';
 
 
 export default function App() {
@@ -24,24 +24,23 @@ export default function App() {
   
   const authContext = useMemo(()=>({
 
-    login: (username, password)=>{
-      // const requestOptions = {
-      //   method: 'post',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     Accept: '*/*'
-      //   },
-      //   body: {username: username, password: password}
-      // };
-      // console.log(requestOptions);
-      // (fetch('http://localhost:3000/api/users/SignIn', requestOptions)
-      // .then(response => response.json())
-      // .then(response => console.log('response' , response))
-      // .then(isBoom => console.log(isBoom))
-      // .then(data =>  setUserToken('as')));
-      console.log(username, '+',  password, '+')
-      setUserToken('token');
-      setIsLoading(false);
+    login: async (username, password)=>{
+       const requestOptions = {
+         method: 'post',
+         headers: {
+           'Content-Type': 'application/json',
+           Accept: '*',
+          },
+          body: JSON.stringify({username: username, password: password})
+       };
+       console.log(requestOptions);
+        try{
+       await (fetch('http://localhost:3000/api/users/SignIn', requestOptions)
+       .then(response => response.json())
+       .then(json => setUserToken(json.token)));      
+       setIsLoading(false);
+       }catch(error){ console.log('Error catcheado: ' + error.message); alert('Failed Credentials')}
+
     },
     registro: ()=>{
       setUserToken('token');
@@ -63,7 +62,7 @@ export default function App() {
   if( isLoading ){
     return(
       <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
-        <ActivityIndicator size='large'/>
+        <Text>Loading...</Text>
       </View>
     );}
 
@@ -72,15 +71,15 @@ export default function App() {
     <NavigationContainer>
       {/* En "initialRouteName={}" podes poner la página a la que se vuelve con el "back" básicamente. */}
       {userToken == null ?( 
-      <Stack.Navigator initialRouteName={"Login"}>
-        <Stack.Screen name="Login" component={Login}/>
-        <Stack.Screen name="Registro" component={Registro}/>
+      <Stack.Navigator initialRouteName={"ScreenLogin"}>
+        <Stack.Screen name="ScreenLogin" component={ScreenLogin}/>
+        <Stack.Screen name="ScreenRegistro" component={ScreenRegistro}/>
       </Stack.Navigator>
       ):(
-        <Stack.Navigator initialRouteName={"Home"}>
-        <Stack.Screen name="Home" component={Home}/>
-        <Stack.Screen name="Autos" component={Autos}/>
-        <Stack.Screen name="Favoritos" component={Favoritos}/>
+        <Stack.Navigator initialRouteName={"ScreenHome"}>
+        <Stack.Screen name="ScreenHome" component={ScreenHome}/>
+        <Stack.Screen name="ScreenAutos" component={ScreenAutos}/>
+        <Stack.Screen name="ScreenFavoritos" component={ScreenFavoritos}/>
       </Stack.Navigator>
       )
     }
@@ -150,7 +149,6 @@ const styles = StyleSheet.create({
   touchable: {
     fontSize: 12,
     backgroundColor: 'black',
-    font: 'red',
     margin: 10,
     padding: 5
   },
