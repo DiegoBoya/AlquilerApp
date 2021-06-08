@@ -10,7 +10,7 @@ export default function ScreenFavoritos({navigation}) {
           
     <View>
         <Text>Welcome!!</Text>
-        <Button onPress={()=>{navigation.push('Home')}} title="Home"/>
+        <Button onPress={()=>{navigation.push('ScreenHome')}} title="Home"/>
     </View>
         
   );}
