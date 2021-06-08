@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Auto from '../../Components/Auto';
+import Auto from '../Components/Auto';
 import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image } from 'react-native';
 //import Barrita from './Barrita';
 //import portada from './assets/portada.png';
@@ -12,12 +12,13 @@ import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Imag
 
 
 
-export default function Autos({navigation, route}) {
+export default function ScreenAutos({navigation, route}) {
     const Stack = createStackNavigator();
 const [autos, setAutos] = useState([]);
 
   function buscarAutos() {
     const aut = fetch('http://localhost:3000/api/autos');
+    // api/estacionamientos/_id?
     //'/api/estacionamientos'
     return aut
       .then(res => res.json())
@@ -76,7 +77,6 @@ const [autos, setAutos] = useState([]);
         touchable: {
           fontSize: 12,
           backgroundColor: 'black',
-          font: 'red',
           margin: 10,
           padding: 5
         },

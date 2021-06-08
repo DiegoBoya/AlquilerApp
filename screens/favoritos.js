@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Imag
 import {AuthContext} from '../Components/Context';
 
 
-export default function Favoritos({navigation}) {
+export default function ScreenFavoritos({navigation}) {
   return (
           
     <View>

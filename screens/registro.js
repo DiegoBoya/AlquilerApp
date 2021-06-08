@@ -6,8 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image } from 'react-native';
 
 
-export default function Registro({navigation}) {
+export default function ScreenRegistro({navigation}) {
   return (
-        <Button onPress={() => navigation.navigate('Login')} title="Login">
-        </Button>
+        <Form>
+        <TextInput placeholder='username' />
+        </Form>
   );}
