@@ -5,17 +5,23 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Auto from '../Components/Auto';
 import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 //import Barrita from './Barrita';
 //import portada from './assets/portada.png';
 //import * as ImagePicker from 'expo-image-picker';
-
 
 export default function ScreenAutos({navigation, route}) {
   const Stack = createStackNavigator();
   const [autos, setAutos] = useState([]);
 
-  function buscarAutos() {
-    const aut = fetch('http://localhost:3000/api/autos');
+  async function buscarAutos() {
+    const token = await AsyncStorage.getItem('token');
+    const requestOptions = {
+      method: "GET",
+      headers: {Authorization: token}
+    }
+    try{
+    const aut = fetch('http://localhost:3000/api/autos', requestOptions);
     // api/estacionamientos/_id?
     //'/api/estacionamientos'
     return aut
@@ -25,6 +31,7 @@ export default function ScreenAutos({navigation, route}) {
         setAutos(json);
       })
       .catch(error => console.log('Ocurrio un error' + error));
+    }catch(error){console.log(error.message);}
   }
 
   useEffect(() => {
@@ -83,7 +90,3 @@ export default function ScreenAutos({navigation, route}) {
           color: '#fff'
         }
       });
-      
-      
-      
-      

@@ -14,6 +14,7 @@ import ScreenLogin from './screens/login';
 import ScreenAutos from './screens/autos';
 import ScreenHome from './screens/home';
 import ScreenFavoritos from './screens/favoritos';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 export default function App() {
@@ -29,15 +30,19 @@ export default function App() {
            'Content-Type': 'application/json',
            Accept: '*',
           },
-          body: JSON.stringify({username: username, password: password})
+          body: JSON.stringify({username: username, password: password, rememberMe: false})
        };
-       console.log(requestOptions);
+       console.log('Username: ' + username + '. Password: ' + password);
         try{
+        if(username == '' || password == ''){
+          throw 'Error credenciales vacías';
+        }
        await (fetch('http://localhost:3000/api/users/SignIn', requestOptions)
        .then(response => response.json())
-       .then(json => setUserToken(json.token)));      
+       .then(json => AsyncStorage.setItem('token' , json.token)));
+       setUserToken(AsyncStorage.getItem('token'));
        setIsLoading(false);
-       }catch(error){ console.log('Error catcheado: ' + error.message); alert('Failed Credentials')}
+       }catch(error){ console.log('Error catcheado: ' + error.message); alert('Failed Credentials.')}
 
     },
     registro: ()=>{
