@@ -11,8 +11,7 @@ export default function ScreenLogin({navigation}) {
     const toggleModal = () =>{
       setIsModalVisible(!isModalVisible);
     }
-
-
+    
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -26,7 +25,7 @@ export default function ScreenLogin({navigation}) {
           <Button onPress={() => {toggleModal()}} title='Login'/>
         </View>
         <View style={styles.fixToText}>
-          <Button onPress={() => {toggleModal()}} title='Register'/>
+          <Button onPress={() => navigation.navigate('ScreenRegistro')} title="Register"></Button>
         </View>
       <Modal
         isVisible={isModalVisible}>
