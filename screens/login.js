@@ -32,8 +32,8 @@ export default function ScreenLogin({navigation}) {
         isVisible={isModalVisible}>
           <View style={{flex:1 , alignItems:'center'}}>
             <Login/>
-          <View>
-            <Button title="Hide modal" onPress={toggleModal} />
+          <View style={styles.fixToText}>
+            <Button title="Skip" onPress={toggleModal} />
           </View>
         </View>
       </Modal>
@@ -81,4 +81,5 @@ export default function ScreenLogin({navigation}) {
       marginHorizontal: 100,
       marginVertical: 15,
     },
+
   });

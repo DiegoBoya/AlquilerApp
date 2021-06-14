@@ -10,29 +10,75 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.subtitle}>Login!</Text>
-      <TextInput placeholder='username' onChangeText={username => setUsername(username)} defaultValue={username}/>
-      <TextInput placeholder='password' secureTextEntry={true} onChangeText={password => setPassword(password)} defaultValue={password}/>
-      <Button onPress={()=> {login(username, password)}} title='login'/>
+      <TextInput style={styles.text} placeholder='username' onChangeText={username => setUsername(username)} defaultValue={username}/>
+      <TextInput style={styles.text} placeholder='password' secureTextEntry={true} onChangeText={password => setPassword(password)} defaultValue={password}/>
+      <Text style={styles.enviar} onPress={()=> {login(username, password)}} title='Send'> SEND </Text>
+      
     </View>
   );
 };
 
 
 const styles = StyleSheet.create({
-  foto: {
+  /*foto: {
     width: 150,
     height: 150,
     alignItems: 'center',
     alignContent: 'center'
 
   },
-  title: { fontSize: 30 },
-
-  subtitle: { fontSize: 24 , color:'red'},
-
-  borde: {
+  title: { 
+    fontSize: 30 
+  },*/
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'darkslategrey',
+    justifyContent: 'center',
+    marginHorizontal: 16,
+  },
+  subtitle: { 
+    fontSize: 24,
+    alignItems: 'center',
+    alignContent: 'center',
+    color:'white',
+    fontWeight: 'bold'
+  },
+  text : {
+    width: 200,
+    height: 50,
+    alignItems: 'center',
+    textAlign: 'center',
+    margin: 10,
+    backgroundColor: 'darkslategrey',
+    borderColor: "darksalmon",
+    color: 'white',
+    borderWidth: 5,
+    borderRadius: 30,
+  },
+  boton: {
+    width: 200,
+    color: 'red',
+    margin: 10,
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  enviar: {
+    width: 100,
+    height: 25,
+    margin: 10,
+    alignItems: 'center',
+    textAlign: 'center',
+    backgroundColor: 'dodgerblue',
+    borderColor: "dodgerblue",
+    color: 'white',
+    borderWidth: 2.5,
+    borderRadius: 15,
+    fontWeight: 'bold'
+  },
+/*  borde: {
     borderWidth: 2,
     borderRadius: 30,
     
@@ -45,7 +91,7 @@ const styles = StyleSheet.create({
     //padding: 10,
     margin : 10,
     borderRadius: 25
-  }
+  }*/
 
 })
 
