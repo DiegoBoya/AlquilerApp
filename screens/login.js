@@ -11,21 +11,35 @@ export default function ScreenLogin({navigation}) {
     const toggleModal = () =>{
       setIsModalVisible(!isModalVisible);
     }
-
-
+    
   return (
-    <View style={{flex: 1, alignItems:'center'}}>
-      <Button onPress={() => {toggleModal()}} title='Login?'/>
+    <View style={styles.container}>
+      <Text style={styles.title}>
+        Bienvenidos a NOMBRE APP !!!
+      </Text>
+      <Text style={styles.content}>
+        Si ya tenes un Usuario ingresa en el Login. Y si aun no tenes tu cuenta anda a Register y da de alta tu propio usuario.
+      </Text>
+      <View>
+        <View style={styles.fixToText}>
+          <Button onPress={() => {toggleModal()}} title='Login'/>
+        </View>
+        <View style={styles.fixToText}>
+          <Button onPress={() => navigation.navigate('ScreenRegistro')} title="Register"></Button>
+        </View>
       <Modal
         isVisible={isModalVisible}>
           <View style={{flex:1 , alignItems:'center'}}>
             <Login/>
-          <View>
-            <Button title="Hide modal" onPress={toggleModal} />
+          <View style={styles.fixToText}>
+            <Button title="Skip" onPress={toggleModal} />
           </View>
         </View>
       </Modal>
     </View>
+
+    </View>
+    
           
     //   <View style={{flex:1 , alignItems:'center'}}>
     //     <TouchableOpacity onPress={() => {toggleModal()}}>Login?</TouchableOpacity>
@@ -37,3 +51,34 @@ export default function ScreenLogin({navigation}) {
     // </View>
         
   );}
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'darkslategrey',
+      justifyContent: 'center',
+      marginHorizontal: 16,
+    },
+    title: {
+      color: 'darksalmon',
+      marginTop: 16,
+      paddingVertical: 4,
+      textAlign: "center",
+      fontSize: 30,
+      fontWeight: "bold"
+    },
+    content: {
+      color: 'darksalmon',
+      marginTop: 16,
+      paddingVertical: 4,
+      marginHorizontal: 16,
+      textAlign: "center",
+      fontSize: 15,
+      //fontWeight: "bold"
+    },
+    fixToText: {
+      marginHorizontal: 100,
+      marginVertical: 15,
+    },
+
+  });

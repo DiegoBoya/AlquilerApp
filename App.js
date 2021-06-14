@@ -71,11 +71,11 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={authContext}>
-    <NavigationContainer>
+    <NavigationContainer style={styles.container}>
       {/* En "initialRouteName={}" podes poner la página a la que se vuelve con el "back" básicamente. */}
       {userToken == null ?( 
       <Stack.Navigator initialRouteName={"ScreenLogin"}>
-        <Stack.Screen name="ScreenLogin" component={ScreenLogin} options={{ title: 'Login' }}/>
+        <Stack.Screen name="ScreenLogin" component={ScreenLogin} options={{ title: 'Inicio' }}/>
         <Stack.Screen name="ScreenRegistro" component={ScreenRegistro} options={{ title: 'Registro' }}/>
       </Stack.Navigator>
       ):(
@@ -136,27 +136,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'yellow',
+    backgroundColor: 'darkslategrey',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  foto: {
-    width: 350,
-    height: 200
-  },
-
-  title: { fontSize: 30 },
-
-  touchable: {
-    fontSize: 12,
-    backgroundColor: 'black',
-    margin: 10,
-    padding: 5
-  },
-
-  buttonText: {
-    color: '#fff'
   }
 });
