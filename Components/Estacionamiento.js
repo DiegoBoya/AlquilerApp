@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Button, TouchableOpacity, Alert } from 'react-native';
 import Favorito from './Favorito';
+import { createStackNavigator } from '@react-navigation/stack';
 
 
-const Estacionamiento = ({ name }) => {
+const Estacionamiento = ({ navigation, id, name, image, location, description }) => {
+    const Stack = createStackNavigator();
     return (
         <View style={styles.borde}>
             <TouchableOpacity
@@ -13,17 +15,17 @@ const Estacionamiento = ({ name }) => {
                 }}
             >
                 <Image
-                    source={{ uri: 'https://picsum.photos/200/200' }}
+                    source={image}
                     style={styles.foto}
                 />
             </TouchableOpacity>
 
             <Text style={styles.title}> {name} </Text>
+            <Text style={styles.subtitle}> {location} </Text>
+            <Text style={styles.subtitle}> {description} </Text>
             <Text> </Text>
-
-
-
-            <Favorito />
+            {console.log(id)}
+            <Button  onPress={()=>{navigation.navigate('ScreenAutos', {_id: id})}} title="Autos"/>
 
         </View >
     );
@@ -40,6 +42,7 @@ const styles = StyleSheet.create({
 
     },
     title: { fontSize: 30 },
+    subtitle: { fontSize: 10 },
 
     borde: {
         borderWidth: 2,

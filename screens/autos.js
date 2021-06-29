@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 export default function ScreenAutos({navigation, route}) {
   const Stack = createStackNavigator();
   const [autos, setAutos] = useState([]);
-
+  console.log(route)
   async function buscarAutos() {
     const token = await AsyncStorage.getItem('token');
     const requestOptions = {
@@ -21,7 +21,8 @@ export default function ScreenAutos({navigation, route}) {
       headers: {Authorization: token}
     }
     try{
-    const aut = fetch('http://localhost:3000/api/autos', requestOptions);
+    const aut = fetch(`http://localhost:3000/api/estacionamientos/getCars/${route.params._id}`, requestOptions);
+    //const aut = fetch('http://localhost:3000/api/autos', requestOptions);
     // api/estacionamientos/_id?
     //'/api/estacionamientos'
     return aut
@@ -57,7 +58,7 @@ export default function ScreenAutos({navigation, route}) {
     </TouchableOpacity>
 
     {autos.map(auto => (
-      <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} id={auto._id} />
+      <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} />
     ))}
 
 
