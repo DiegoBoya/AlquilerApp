@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, Button, TouchableOpacity, Alert } from '
 import Favorito from './Favorito';
 
 
-const Auto = ({ marca, modelo, precio, km }) => {
+const Auto = ({ marca, modelo, año, imagen, precio, km }) => {
   return (
     <View style={styles.borde}>
       <TouchableOpacity
@@ -13,7 +13,7 @@ const Auto = ({ marca, modelo, precio, km }) => {
           }}
           >
         <Image
-          source={{ uri: 'https://picsum.photos/200/200' }}
+          source={imagen}
           style={styles.foto}
         />
       </TouchableOpacity>
@@ -22,6 +22,7 @@ const Auto = ({ marca, modelo, precio, km }) => {
       <Text style={styles.subtitle}> {modelo} </Text>
       <Text> {km} </Text>
       <Text> {precio} </Text>
+      <Text> {año} </Text>
       <Text> en cada uri poner la foto de la BD de cada auto</Text>
 
 
