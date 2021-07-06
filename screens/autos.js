@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Auto from '../Components/Auto';
 import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import RNPickerSelect from 'react-native-picker-select';
 //import Barrita from './Barrita';
 //import portada from './assets/portada.png';
 //import * as ImagePicker from 'expo-image-picker';
@@ -13,6 +14,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 export default function ScreenAutos({navigation, route}) {
   const Stack = createStackNavigator();
   const [autos, setAutos] = useState([]);
+  const [Drop, setDrop] = useState('');
   console.log(route)
   async function buscarAutos() {
     const token = await AsyncStorage.getItem('token');
@@ -38,11 +40,28 @@ export default function ScreenAutos({navigation, route}) {
   useEffect(() => {
     buscarAutos();
   }, []);
+
+  const dropdown = Array.from(new Set(autos));
+  
+  
+  console.log(dropdown);
+
   return (    
   <View style={styles.container}>
       
     <Text style={styles.title}> Hola ,Viaja como quieras ^-^ </Text>
     <StatusBar style="auto" />
+    <RNPickerSelect
+            onValueChange={(value) => setDrop(value)} 
+            items={dropdown.map(
+              auto => (
+                {
+                  label: auto.modelo,
+                  value: auto.modelo
+                })
+            )}
+              
+        />
 
     <Button
       title="primerBoton"
@@ -57,9 +76,16 @@ export default function ScreenAutos({navigation, route}) {
       <Text style={styles.buttonText}> el touchable </Text>
     </TouchableOpacity>
 
-    {autos.map(auto => (
-      <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} />
-    ))}
+    {console.log(Drop)}
+    
+    {
+      (Drop === null || Drop === "Select an item...") ? (
+        autos.map(auto => auto.estado === "Disponible" ? (
+          <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} />): <Text> No hay autos </Text>)
+      ) : (autos.map(auto => auto.estado === "Disponible" && Drop === auto.modelo ? (
+        <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} />) : <Text>  </Text>))    
+    }
+      
 
 
   </View>
