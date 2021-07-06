@@ -1,29 +1,48 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, TextInput, View, FlatList, Button, Alert, TouchableOpacity, Image } from 'react-native';
+import {AuthContext} from '../Components/Context';
+import ScreenLogin from './login';
 
 //Hay que ver como enviar los datos
 
-const Registro = () => {
+const Registro = ({navigation, route}) => {
+      const { registro} = useContext(AuthContext);
       const [firstName, setFirstName] = useState('');
       const [lastName, setLastName] = useState('');
       const [password, setPassword] = useState('');
       const [mail, setMail] = useState('');
       const [username, setUsername] = useState('');
+      const [registrado, setRegistrado] = useState();
+      const Stack = createStackNavigator();
           
       return (
             <View style={styles.container}>
-                <Text style={styles.subtitle}>Register Now!</Text>
-                <TextInput style={styles.text} placeholder='firstName' onChangeText={firstName => setFirstName(firstName)} defaultValue={firstName}/>
-                <TextInput style={styles.text} placeholder='lastName' onChangeText={lastName => setLastName(lastName)} defaultValue={lastName}/>
-                <TextInput style={styles.text} placeholder='password' secureTextEntry={true} onChangeText={password => setPassword(password)} defaultValue={password}/>
-                <TextInput style={styles.text} placeholder='mail' onChangeText={mail => setMail(mail)} defaultValue={mail}/>
-                <TextInput style={styles.text} placeholder='username' onChangeText={username => setUsername(username)} defaultValue={username}/>
-                <Text style={styles.enviar} onPress={()=> {Registro(username, password)}} title='Send'> SEND </Text>
-                
+                {!registrado ? (
+                  <View style={styles.container}>
+                    <Text style={styles.subtitle}>Register Now!</Text>
+                  <TextInput style={styles.text} placeholder='firstName' onChangeText={firstName => setFirstName(firstName)} defaultValue={firstName}/>
+                  <TextInput style={styles.text} placeholder='lastName' onChangeText={lastName => setLastName(lastName)} defaultValue={lastName}/>
+                  <TextInput style={styles.text} placeholder='password' secureTextEntry={true} onChangeText={password => setPassword(password)} defaultValue={password}/>
+                  <TextInput style={styles.text} placeholder='mail' onChangeText={mail => setMail(mail)} defaultValue={mail}/>
+                  <TextInput style={styles.text} placeholder='username' onChangeText={username => setUsername(username)} defaultValue={username}/>
+                  <Text style={styles.enviar} onPress={async()=> {setRegistrado(await registro(firstName, lastName, password, username, mail))}} title='Send'> SEND </Text>
+                  </View>
+                ): (
+                  <View>
+                    
+                   <Text>
+                     Hola
+                   </Text>
+                   <Button title="ir al home" onPress={navigation.navigate('ScreenLogin')} name='ScreenLogin'>
+
+                   </Button>
+
+                  </View>
+                )}                
               </View>
             );
           };

@@ -45,9 +45,27 @@ export default function App() {
        }catch(error){ console.log('Error catcheado: ' + error.message); alert('Failed Credentials.')}
 
     },
-    registro: ()=>{
-      setUserToken('token');
+    registro: async (firstName, lastName, password, username, mail)=>{
+      const requestOptions = {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: '*',
+         },
+        body: JSON.stringify({firstName: firstName, lastName: lastName, password: password, username: username, mail: mail})
+      };
+      console.log('Username: ' + username + '. Password: ' + password);
+       try{
+       if(username == '' || password == ''){
+        throw {message: 'mal regsitro'}
+       }
+      let retorno = await (fetch('http://localhost:3000/api/users/SignUp', requestOptions)
+      .then(response => response.json()).then(json => alert(json)))
       setIsLoading(false);
+      return true
+      }catch(error){ console.log('Error catcheado: ' + error.message); alert('Failed Credentials.'); return false
+    }
+
     },
     desconectar: ()=>{
       setUserToken(null);

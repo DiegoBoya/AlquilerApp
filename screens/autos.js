@@ -77,20 +77,13 @@ export default function ScreenAutos({navigation, route}) {
     </TouchableOpacity>
 
     {console.log(Drop)}
-    {/*autos.map(auto => auto.estado === "Disponible" && Drop === auto.modelo ? (
-        <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} />
-      ): <Text> </Text>)
-      */
-    }
-
+    
     {
       (Drop === null || Drop === "Select an item...") ? (
         autos.map(auto => auto.estado === "Disponible" ? (
           <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} />): <Text> No hay autos </Text>)
       ) : (autos.map(auto => auto.estado === "Disponible" && Drop === auto.modelo ? (
-        <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} />) : <Text>  </Text>))
-     
-      
+        <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} />) : <Text>  </Text>))    
     }
       
 
