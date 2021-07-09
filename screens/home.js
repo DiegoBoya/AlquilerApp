@@ -6,6 +6,7 @@ import {AuthContext} from '../Components/Context';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import Estacionamiento from '../Components/Estacionamiento';
+
 import { log } from 'react-native-reanimated';
 
 export default function ScreenHome({navigation, route}) {
@@ -39,7 +40,8 @@ export default function ScreenHome({navigation, route}) {
   return (
           
       <View style={styles.container}>
-
+        <Button onPress={()=>{navigation.navigate('ScreenFavoritos')}} title="Favoritos"/>
+        <Button onPress={()=>{navigation.navigate('ScreenAutoAlquilado')}} title="Auto Alquilado"/>
         <Text style={styles.title}>Nuestros Estacionamientos</Text>
         <StatusBar style='Estacionamientos'/>
 
