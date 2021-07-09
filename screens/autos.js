@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Auto from '../Components/Auto';
@@ -10,8 +10,10 @@ import RNPickerSelect from 'react-native-picker-select';
 //import Barrita from './Barrita';
 //import portada from './assets/portada.png';
 //import * as ImagePicker from 'expo-image-picker';
+import {AuthContext} from '../Components/Context';
 
 export default function ScreenAutos({navigation, route}) {
+  const{ devolverUsuario } = useContext(AuthContext);
   const Stack = createStackNavigator();
   const [autos, setAutos] = useState([]);
   const [Drop, setDrop] = useState('');
@@ -48,7 +50,7 @@ export default function ScreenAutos({navigation, route}) {
 
   return (    
   <View style={styles.container}>
-      
+      {console.log(devolverUsuario())}
     <Text style={styles.title}> Hola ,Viaja como quieras ^-^ </Text>
     <StatusBar style="auto" />
     <RNPickerSelect
