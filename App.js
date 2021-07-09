@@ -13,6 +13,7 @@ import ScreenRegistro from './screens/registro';
 import ScreenLogin from './screens/login';
 import ScreenAutos from './screens/autos';
 import ScreenHome from './screens/home';
+import ScreenAutoAlquilado from './screens/autoAlquilado';
 import ScreenFavoritos from './screens/favoritos';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -21,6 +22,7 @@ export default function App() {
   const Stack = createStackNavigator();
   const [isLoading , setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
+  const [user, setUser] = useState(null);
   
   const authContext = useMemo(()=>({
     login: async (username, password)=>{
@@ -40,8 +42,14 @@ export default function App() {
        await (fetch('http://localhost:3000/api/users/SignIn', requestOptions)
        .then(response => response.json())
        .then(json => AsyncStorage.setItem('token' , json.token)));
+       
+       await (fetch('http://localhost:3000/api/users/SignIn', requestOptions)
+       .then(response => response.json()).then(json => setUser(json)));
+
+      
+       //setUser(AsyncStorage.getItem('usuario'));
        setUserToken(AsyncStorage.getItem('token'));
-       setIsLoading(false);
+       setIsLoading(false); 
        }catch(error){ console.log('Error catcheado: ' + error.message); alert('Failed Credentials.')}
 
     },
@@ -65,7 +73,11 @@ export default function App() {
       return true
       }catch(error){ console.log('Error catcheado: ' + error.message); alert('Failed Credentials.'); return false
     }
-
+        
+    },
+    devolverUsuario: () => {
+      let usuario =  user.usuario;
+      return usuario;
     },
     desconectar: ()=>{
       setUserToken(null);
@@ -101,6 +113,8 @@ export default function App() {
         <Stack.Screen name="ScreenHome" component={ScreenHome} options={{ title: 'Home' }}/>
         <Stack.Screen name="ScreenAutos" component={ScreenAutos} options={{ title: 'Autos' }}/>
         <Stack.Screen name="ScreenFavoritos" component={ScreenFavoritos} options={{ title: 'Favoritos' }}/>
+        {console.log(user.usuario)}
+        <Stack.Screen name="ScreenAutoAlquilado" component={ScreenAutoAlquilado} user={user} options={{ title: 'Auto Alquilado' }}/>
       </Stack.Navigator>
       )
     }
