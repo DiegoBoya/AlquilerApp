@@ -1,9 +1,16 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, Button, TouchableOpacity, Alert } from 'react-native';
+import 'react-native-gesture-handler';
+import { StatusBar } from 'expo-status-bar';
+import React, { useState, useEffect, useContext } from 'react';
+import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image } from 'react-native';
+import {AuthContext} from '../Components/Context';
 import Favorito from './Favorito';
 
 
-const Auto = ({ marca, modelo, año, imagen, precio, km }) => {
+
+const Auto = ({ marca, modelo, año, imagen, precio, km, navigation }) => {
+
+ 
+
   return (
     <View style={styles.borde}>
       <TouchableOpacity
@@ -25,9 +32,13 @@ const Auto = ({ marca, modelo, año, imagen, precio, km }) => {
       <Text> {año} </Text>
       <Text> en cada uri poner la foto de la BD de cada auto</Text>
 
-
+    
 
       <Favorito />
+
+      <Button onPress={()=>{
+                navigation.navigate('ScreenDetallesDelAuto')
+                }} title="Alquilar Ahora!"/>
 
     </View >
   );

@@ -16,6 +16,7 @@ import ScreenHome from './screens/home';
 import ScreenAutoAlquilado from './screens/autoAlquilado';
 import ScreenFavoritos from './screens/favoritos';
 import AsyncStorage from '@react-native-community/async-storage';
+import ScreenDetallesDelAuto from './Components/DetallesDelAuto';
 
 
 export default function App() {
@@ -115,6 +116,7 @@ export default function App() {
         <Stack.Screen name="ScreenFavoritos" component={ScreenFavoritos} options={{ title: 'Favoritos' }}/>
         {console.log(user.usuario)}
         <Stack.Screen name="ScreenAutoAlquilado" component={ScreenAutoAlquilado} user={user} options={{ title: 'Auto Alquilado' }}/>
+        <Stack.Screen name="ScreenDetallesDelAuto" component={ScreenDetallesDelAuto} user={user} options={{ title: 'Detalles' }}/>
       </Stack.Navigator>
       )
     }
