@@ -6,27 +6,14 @@ import Favorito from './Favorito';
 const Auto = ({ marca, modelo, año, imagen, precio, km }) => {
   return (
     <View style={styles.borde}>
-      <TouchableOpacity
-            onPress={() => {
-              alert('mostrando detalles')
-              console.log("mostrando detalles")
-          }}
-          >
         <Image
           source={imagen}
           style={styles.foto}
         />
-      </TouchableOpacity>
-
-      <Text style={styles.title}> {marca} </Text>
-      <Text style={styles.subtitle}> {modelo} </Text>
-      <Text> {km} </Text>
-      <Text> {precio} </Text>
-      <Text> {año} </Text>
-      <Text> en cada uri poner la foto de la BD de cada auto</Text>
-
-
-
+      
+      <Text style={styles.title}> {modelo} </Text>
+      <Text style={styles.subtitle}> {marca + " | "+ año}  </Text>
+      
       <Favorito />
 
     </View >

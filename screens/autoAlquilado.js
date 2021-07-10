@@ -17,8 +17,7 @@ export default function ScreenAutoAlquilado({navigation, user}) {
     <View>
         {console.log(devolverUsuario())}
 
-        <Text>Welcome!!</Text>
-
+        
         <AutoAlquilado user={devolverUsuario()} navigation={navigation}/>
 
 

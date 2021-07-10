@@ -79,6 +79,9 @@ export default function App() {
       let usuario =  user.usuario;
       return usuario;
     },
+    updateUser: async (json) => {
+      setUser(json);
+    },
     desconectar: ()=>{
       setUserToken(null);
       setIsLoading(false);
