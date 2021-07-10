@@ -11,16 +11,8 @@ const AutoAlquilado = ({ navigation, user }) => {
     const [isLoading , setIsLoading] = useState(true);
     const [usuario, setUsuario] = useState(user);
     const [flag, setFlag] = useState(false);
+    const [auto, setAuto] = useState();
 
-    const schema = {
-      firstName: "",
-      lastName: "",
-      auto: [],
-      password: "",
-      mail: "",
-      username: "",
-      favoritos: []
-  };
     
     async function getUsuario() {
       const token = await AsyncStorage.getItem('token');
@@ -36,6 +28,25 @@ const AutoAlquilado = ({ navigation, user }) => {
         .then(json => {
           console.log(json.est);
           setUsuario(json);
+        })
+        .catch(error => console.log('Ocurrio el error: ' + error)); 
+      }catch(error){console.log(error.message);} 
+    }
+
+    async function getAuto() {
+      const token = await AsyncStorage.getItem('token');
+      const requestOptions = {
+        method: "GET",
+        headers: {Authorization: token} 
+      }
+      try {
+        const est = fetch(`http://localhost:3000/api/autos/${usuario.auto[0]}`, requestOptions);
+        console.log(est)
+        return est
+        .then(res => res.json())
+        .then(json => {
+          console.log(json.est);
+          setAuto(json);
         })
         .catch(error => console.log('Ocurrio el error: ' + error)); 
       }catch(error){console.log(error.message);} 
@@ -63,6 +74,7 @@ const AutoAlquilado = ({ navigation, user }) => {
 
   useEffect(() =>{
     getUsuario()
+    getAuto()
     setTimeout(()=>{
       setIsLoading(false);
       ;
@@ -76,21 +88,25 @@ const AutoAlquilado = ({ navigation, user }) => {
       </View>
     );}
 
-  
-
 
     return (
 
         
-        <View>
+        <View style={styles.entorno}>
 
         {
           (usuario.auto.length == 0) ?
           (<Text style={styles.title}> No tiene Auto Alquilado </Text>):
           ( <View>
-            <Text style={styles.title}> {usuario.firstName} </Text>
-            <Text style={styles.subtitle}> {usuario.lastName} </Text>
-            <Text style={styles.subtitle}> {usuario.auto[0]} </Text>
+            {console.log(auto)}
+            <View style={styles.entorno}>
+            <Image
+            source={auto.imagen}
+            style={styles.foto}
+          />
+            </View>
+            <Text style={styles.title}> {auto.modelo} </Text>
+            <Text style={styles.subtitle}> {auto.marca + " | " + auto.año} </Text>
             <Button onPress={()=>{
                 terminarAlquiler();
                 navigation.navigate('ScreenHome')
@@ -107,45 +123,35 @@ const AutoAlquilado = ({ navigation, user }) => {
 
 const styles = StyleSheet.create({
     
-    title: { fontSize: 30 },
-    subtitle: { fontSize: 10 },
+  entorno:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
+  foto: {
+    width: 350,
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center'
+    
+  },
+  title: { fontSize: 30 },
 
-    borde: {
-        borderWidth: 2,
-        borderRadius: 30,
+  subtitle: { fontSize: 24 },
 
-    },
+  borde: {
+    borderWidth: 2,
+    borderRadius: 30,
+
+  },
 
 })
 
 export default AutoAlquilado;
 
 
-/*login: async (username, password)=>{
-       const requestOptions = {
-         method: 'post',
-         headers: {
-           'Content-Type': 'application/json',
-           Accept: '*',
-          },
-          body: JSON.stringify({username: username, password: password, rememberMe: false})
-       };
-       console.log('Username: ' + username + '. Password: ' + password);
-        try{
-        if(username == '' || password == ''){
-          throw 'Error credenciales vacías';
-        }
-       await (fetch('http://localhost:3000/api/users/SignIn', requestOptions)
-       .then(response => response.json())
-       .then(json => AsyncStorage.setItem('token' , json.token)));
-       
-       await (fetch('http://localhost:3000/api/users/SignIn', requestOptions)
-       .then(response => response.json()).then(json => setUser(json)));
-
-      
-       //setUser(AsyncStorage.getItem('usuario'));
-       setUserToken(AsyncStorage.getItem('token'));
-       setIsLoading(false); 
-       }catch(error){ console.log('Error catcheado: ' + error.message); alert('Failed Credentials.')}
-
-    }, */
+/*<Image
+            source={auto.imagen}
+            style={styles.foto}
+          /> */
