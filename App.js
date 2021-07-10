@@ -3,7 +3,6 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, useMemo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Auto from './Components/Auto';
 import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 //import Barrita from './Barrita';
 import {AuthContext} from './Components/Context';
@@ -16,6 +15,7 @@ import ScreenHome from './screens/home';
 import ScreenAutoAlquilado from './screens/autoAlquilado';
 import ScreenDetallesDelAuto from './screens/detallesDelAuto';
 import ScreenFavoritos from './screens/favoritos';
+import ScreenProfile from './screens/profile';
 import AsyncStorage from '@react-native-community/async-storage';
 
 
@@ -45,7 +45,7 @@ export default function App() {
        .then(json => AsyncStorage.setItem('token' , json.token)));
        
        await (fetch('http://localhost:3000/api/users/SignIn', requestOptions)
-       .then(response => response.json()).then(json => setUser(json)));
+       .then(response => response.json()).then(json => {console.log('login: ' + JSON.stringify(json.usuario)); setUser(json.usuario)}));
 
       
        //setUser(AsyncStorage.getItem('usuario'));
@@ -77,7 +77,7 @@ export default function App() {
         
     },
     devolverUsuario: () => {
-      let usuario =  user.usuario;
+      let usuario =  user;
       return usuario;
     },
     updateUser: async (json) => {
@@ -120,6 +120,8 @@ export default function App() {
         {console.log(user.usuario)}
         <Stack.Screen name="ScreenAutoAlquilado" component={ScreenAutoAlquilado} user={user} options={{ title: 'Auto Alquilado' }}/>
         <Stack.Screen name="ScreenDetallesDelAuto" component={ScreenDetallesDelAuto} user={user} options={{ title: 'Detalles' }}/>
+        <Stack.Screen name="ScreenProfile" component={ScreenProfile} options={{title: 'Perfil'}}/>
+        <Stack.Screen name="ScreenAutoAlquilado" component={ScreenAutoAlquilado} user={user.usuario} options={{ title: 'Auto Alquilado' }}/>
       </Stack.Navigator>
       )
     }

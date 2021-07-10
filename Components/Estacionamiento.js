@@ -10,7 +10,6 @@ const Estacionamiento = ({ navigation, id, name, image, location, description })
         <View style={styles.borde}>
             <TouchableOpacity
                 onPress={() => {
-                    alert('ingresando al estacionamiento')
                     console.log("ingresando al estacionamiento")
                 }}
             >
@@ -24,7 +23,6 @@ const Estacionamiento = ({ navigation, id, name, image, location, description })
             <Text style={styles.subtitle}> {location} </Text>
             <Text style={styles.subtitle}> {description} </Text>
             <Text> </Text>
-            {console.log(id)}
             <Button  onPress={()=>{navigation.navigate('ScreenAutos', {_id: id})}} title="Autos"/>
 
         </View >
