@@ -3,23 +3,22 @@ import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image } from 'react-native';
 import {AuthContext} from '../Components/Context';
 import DetallesDelAuto from '../Components/DetallesDelAuto';
+import { createStackNavigator } from '@react-navigation/stack';
 
 
-export default function ScreenDetallesDelAuto({navigation, user}) {
+export default function ScreenDetallesDelAuto({navigation, route}) {
+  const Stack = createStackNavigator();
   const { devolverUsuario } = useContext(AuthContext);
-   const user = devolverUsuario(); 
-    return (
-            
+  return (
+    
     <View>
         {console.log(devolverUsuario())}
+        {console.log(route.params.auto)}
 
         <Text>Dale que se alquilaaaaa!!</Text>
-
-        <DetallesDelAuto navigation={navigation} user={user} />
-
-
-
         
+        <DetallesDelAuto navigation={navigation} auto={route.params.auto} />
+
     </View>
         
   );}

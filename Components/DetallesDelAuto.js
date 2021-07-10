@@ -1,32 +1,34 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Image, StyleSheet, Button, TouchableOpacity, Alert, CheckBox } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {AuthContext} from './Context';
 import AsyncStorage from '@react-native-community/async-storage';
 
 
-const DetallesDelAuto = ({ navigation, user }) => {
+const DetallesDelAuto = ({ navigation, auto}) => {
     const Stack = createStackNavigator();
-    const [checkBoxState, setCheckBoxState] = useState(false) ;
-   // const user = devolverUsuario();
+    const { devolverUsuario } = useContext(AuthContext);
+   // const [checkBoxState, setCheckBoxState] = useState(false) ;
+    const user = devolverUsuario();
+
     async function alquilarAuto() {
     const token = await AsyncStorage.getItem('token');
-    console.log(user);
+    console.log("el usuario es" + user._id);
     const requestOptions = {
-      method: 'post',
+      method: 'put',
       headers: {
           'Content-Type': 'application/json',
            Accept: '*',
           Authorization: token},
-      body: JSON.stringify({auto: user.auto[0]})
+      body: JSON.stringify({auto: auto.id})
     };
-    console.log(JSON.stringify({auto: user.auto[0]}));
+    console.log(auto._id);
+    console.log(" el auto " + auto.id )
     try{
     (fetch(`http://localhost:3000/api/users/alquilarAuto/${user._id}`, requestOptions)
     .then(res => res.json())
     .then(json => alert(json)));
-    console.log(token)
     //console.log(user.token);
     }catch(error){console.log(error.message);}
   }
@@ -51,11 +53,11 @@ const DetallesDelAuto = ({ navigation, user }) => {
             <Text> {user.document} </Text>
             <Text> {user.mail} </Text>
             <Text> {user.username} </Text>
-     */}       
             <CheckBox> jejejejeje </CheckBox>
             <CheckBox checked={checkBoxState} onClick={setCheckBoxState(!checkBoxState)}> jejejejeje </CheckBox>
             <CheckBox> popo </CheckBox>
-         
+     */}       
+
 
             <Text> </Text>
             {/*{console.log(user._id)} */}

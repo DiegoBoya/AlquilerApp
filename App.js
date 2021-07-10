@@ -14,9 +14,9 @@ import ScreenLogin from './screens/login';
 import ScreenAutos from './screens/autos';
 import ScreenHome from './screens/home';
 import ScreenAutoAlquilado from './screens/autoAlquilado';
+import ScreenDetallesDelAuto from './screens/detallesDelAuto';
 import ScreenFavoritos from './screens/favoritos';
 import AsyncStorage from '@react-native-community/async-storage';
-import ScreenDetallesDelAuto from './Components/DetallesDelAuto';
 
 
 export default function App() {
@@ -79,6 +79,9 @@ export default function App() {
     devolverUsuario: () => {
       let usuario =  user.usuario;
       return usuario;
+    },
+    updateUser: async (json) => {
+      setUser(json);
     },
     desconectar: ()=>{
       setUserToken(null);

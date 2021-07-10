@@ -1,43 +1,33 @@
-import 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
+//import 'react-native-gesture-handler';
 import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image } from 'react-native';
-import {AuthContext} from '../Components/Context';
+import {AuthContext} from './Context';
 import Favorito from './Favorito';
+import { createStackNavigator } from '@react-navigation/stack';
 
 
-
-const Auto = ({ marca, modelo, año, imagen, precio, km, navigation }) => {
-
- 
+const Auto = ({ marca, modelo, año, imagen, id, navigation }) => {
+  const Stack = createStackNavigator();
+  const miAuto = { marca: marca,
+                   modelo: modelo,
+                   año:año,
+                   imagen:imagen , 
+                   id: id};
 
   return (
     <View style={styles.borde}>
-      <TouchableOpacity
-            onPress={() => {
-              alert('mostrando detalles')
-              console.log("mostrando detalles")
-          }}
-          >
         <Image
           source={imagen}
           style={styles.foto}
         />
-      </TouchableOpacity>
 
-      <Text style={styles.title}> {marca} </Text>
-      <Text style={styles.subtitle}> {modelo} </Text>
-      <Text> {km} </Text>
-      <Text> {precio} </Text>
-      <Text> {año} </Text>
-      <Text> en cada uri poner la foto de la BD de cada auto</Text>
-
-    
-
+      <Text style={styles.title}> {modelo} </Text>
+      <Text style={styles.subtitle}> {marca + " | "+ año}  </Text>
+      
       <Favorito />
 
       <Button onPress={()=>{
-                navigation.navigate('ScreenDetallesDelAuto')
+                navigation.navigate('ScreenDetallesDelAuto', {auto: miAuto})
                 }} title="Alquilar Ahora!"/>
 
     </View >
@@ -62,7 +52,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 30,
 
-  },
+  }
   /*
     favoriteButton: {
       backgroundColor: 'pink',
