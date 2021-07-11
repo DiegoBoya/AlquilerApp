@@ -26,14 +26,14 @@ export default function App() {
   const [user, setUser] = useState(null);
   
   const authContext = useMemo(()=>({
-    login: async (username, password)=>{
+    login: async (username, password, rememberMe)=>{
        const requestOptions = {
          method: 'post',
          headers: {
            'Content-Type': 'application/json',
            Accept: '*',
           },
-          body: JSON.stringify({username: username, password: password, rememberMe: false})
+          body: JSON.stringify({username: username, password: password, rememberMe: rememberMe})
        };
        console.log('Username: ' + username + '. Password: ' + password);
         try{
@@ -118,7 +118,6 @@ export default function App() {
         <Stack.Screen name="ScreenAutos" component={ScreenAutos} options={{ title: 'Autos' }}/>
         <Stack.Screen name="ScreenFavoritos" component={ScreenFavoritos} options={{ title: 'Favoritos' }}/>
         {console.log(user.usuario)}
-        <Stack.Screen name="ScreenAutoAlquilado" component={ScreenAutoAlquilado} user={user} options={{ title: 'Auto Alquilado' }}/>
         <Stack.Screen name="ScreenDetallesDelAuto" component={ScreenDetallesDelAuto} user={user} options={{ title: 'Detalles' }}/>
         <Stack.Screen name="ScreenProfile" component={ScreenProfile} options={{title: 'Perfil'}}/>
         <Stack.Screen name="ScreenAutoAlquilado" component={ScreenAutoAlquilado} user={user.usuario} options={{ title: 'Auto Alquilado' }}/>

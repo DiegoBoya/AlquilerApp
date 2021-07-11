@@ -1,5 +1,5 @@
 import React , {useContext, useState, useEffect} from 'react';
-import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image, TextInput } from 'react-native';
+import {StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image, TextInput, CheckBox} from 'react-native';
 import {AuthContext} from './Context';
 
 
@@ -8,14 +8,16 @@ const Login = () => {
   const {login}  = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
 
   return (
     <View style={styles.container}>
       <Text style={styles.subtitle}>Login!</Text>
       <TextInput style={styles.text} placeholder='username' onChangeText={username => setUsername(username)} defaultValue={username}/>
       <TextInput style={styles.text} placeholder='password' secureTextEntry={true} onChangeText={password => setPassword(password)} defaultValue={password}/>
-      <Text style={styles.enviar} onPress={()=> {login(username, password)}} title='Send'> SEND </Text>
-      
+      <Text style={styles.textShort}>Recordar Usuario?</Text>
+      <CheckBox value={rememberMe} onValueChange={setRememberMe}/>
+      <Text style={styles.enviar} onPress={()=> {login(username, password, rememberMe)}} title='Send'> SEND </Text>
     </View>
   );
 };
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'darkslategrey',
     justifyContent: 'center',
-    marginHorizontal: 16,
+    marginHorizontal: 24,
   },
   subtitle: { 
     fontSize: 24,
@@ -78,6 +80,11 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     fontWeight: 'bold'
   },
+  textShort:{
+    color: '#ffff',
+    fontStyle: 'italic',
+    fontSize: 14
+  }
 /*  borde: {
     borderWidth: 2,
     borderRadius: 30,
