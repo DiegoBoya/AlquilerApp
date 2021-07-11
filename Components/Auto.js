@@ -24,7 +24,7 @@ const Auto = ({ marca, modelo, año, imagen, id, navigation }) => {
       <Text style={styles.title}> {modelo} </Text>
       <Text style={styles.subtitle}> {marca + " | "+ año}  </Text>
       
-      <Favorito />
+      <Favorito idAuto={id}/>
 
       <Button onPress={()=>{
                 navigation.navigate('ScreenDetallesDelAuto', {auto: miAuto})
