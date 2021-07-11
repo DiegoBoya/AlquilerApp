@@ -3,44 +3,75 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect , useContext} from 'react';
 import { StyleSheet, Text, View, FlatList, Button, Alert, TouchableOpacity, Image } from 'react-native';
 import {AuthContext} from '../Components/Context';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-community/async-storage';
 import Estacionamiento from '../Components/Estacionamiento';
-
+import ScreenProfile from './profile';
 import { log } from 'react-native-reanimated';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function ScreenHome({navigation, route}) {
-  const Stack = createStackNavigator();
+  const Tabs = createBottomTabNavigator();
+  const [isLoading , setIsLoading] = useState(true);
   const [estacionamientos, setEstacionamientos] = useState([]);
+  const { updateUser, devolverUsuario } = useContext(AuthContext);
+  const usuario = devolverUsuario();
   
   async function buscarEstacionamiento() {
-    const token = await AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');  
+    const auto = {
+      asd:'asd',
+      asd2:'asdasd'
+    }
     const requestOptions = {
       method: "GET",
       headers: {Authorization: token} 
     }
     try {
       const est = fetch('http://localhost:3000/api/estacionamientos/', requestOptions);
-      console.log(est)
       return est
       .then(res => res.json())
+      .then(json => {setEstacionamientos(json);})
+      .catch(error => console.log('Ocurrio el error: ' + error)); 
+    }catch(error){console.log(error.message);} 
+  }
+  async function getUsuario() {
+    const token = await AsyncStorage.getItem('token');
+    const requestOptions = {
+      method: "GET",
+      headers: {Authorization: token} 
+    }
+    try {
+      const user = fetch(`http://localhost:3000/api/users/${usuario._id}`, requestOptions);
+      return user
+      .then(res => res.json())
       .then(json => {
-        console.log(json.est);
-        setEstacionamientos(json);
+        updateUser(json);
       })
       .catch(error => console.log('Ocurrio el error: ' + error)); 
     }catch(error){console.log(error.message);} 
   }
+
+
   
   useEffect(() => {
     buscarEstacionamiento();
+    getUsuario();
+    setTimeout(()=>{
+      setIsLoading(false);
+    }, 1500)
   }, []);
 
+  if( isLoading ){
+    return(
+      <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
+        <Text>Loading...</Text>
+      </View>
+    );}
   
   return (
-          
       <View style={styles.container}>
-        <Button onPress={()=>{navigation.navigate('ScreenFavoritos')}} title="Favoritos"/>
+        <Button onPress={()=>{navigation.navigate('ScreenProfile')}} title="Perfil"/>
         <Button onPress={()=>{navigation.navigate('ScreenAutoAlquilado')}} title="Auto Alquilado"/>
         <Text style={styles.title}>Nuestros Estacionamientos</Text>
         <StatusBar style='Estacionamientos'/>
@@ -55,7 +86,7 @@ export default function ScreenHome({navigation, route}) {
           description={estacionamiento.description} />
         ))}
           
-          <Button onPress={()=>{navigation.navigate('ScreenFavoritos')}} title="Favoritos"/>
+          <Button onPress={()=>{navigation.navigate('ScreenFavoritos')}} title="Favoritos"/>        
         </View>
   );}
 
