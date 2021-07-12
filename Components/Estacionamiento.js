@@ -8,22 +8,21 @@ const Estacionamiento = ({ navigation, id, name, image, location, description })
     const Stack = createStackNavigator();
     return (
         <View style={styles.borde}>
-            <TouchableOpacity
-                onPress={() => {
-                    console.log("ingresando al estacionamiento")
-                }}
-            >
+            <View style={styles.container}>
                 <Image
                     source={image}
                     style={styles.foto}
                 />
-            </TouchableOpacity>
+            </View>
 
             <Text style={styles.title}> {name} </Text>
             <Text style={styles.subtitle}> {location} </Text>
-            <Text style={styles.subtitle}> {description} </Text>
-            <Text> </Text>
-            <Button  onPress={()=>{navigation.navigate('ScreenAutos', {_id: id})}} title="Autos"/>
+            <Text style={styles.text}> {description} </Text>
+            <View style={styles.container}> 
+                <Text style={styles.enviar} onPress={()=>{navigation.navigate('ScreenAutos', {_id: id})}} title='Autos'> Autos </Text>
+            </View>
+            
+            
 
         </View >
     );
@@ -32,21 +31,51 @@ const Estacionamiento = ({ navigation, id, name, image, location, description })
 
 const styles = StyleSheet.create({
     foto: {
-        width: 350,
+        width: 300,
         height: 200,
         alignItems: 'center',
         alignContent: 'center',
-        marginTop: 25
+        marginTop: 10
 
     },
-    title: { fontSize: 30 },
-    subtitle: { fontSize: 10 },
-
+    title: { 
+        fontSize: 30,
+        color: "white"
+    },
+    subtitle: { 
+        fontSize: 20,
+        margin: 5,
+        color: "white"
+    },
+    text: { 
+        fontSize: 10,
+        margin: 5,
+        color: "white"
+    },
     borde: {
+        borderWidth: 1,
+        borderRadius: 15,
+    },
+    enviar: {
+        width: 300,
+        height: 25,
+        alignItems: 'center',
+        textAlign: 'center',
+        backgroundColor: 'dodgerblue',
+        borderColor: "dodgerblue",
+        color: 'white',
         borderWidth: 2,
         borderRadius: 30,
-
-    },
+        marginTop: 5,
+        fontWeight: 'bold'
+      },
+      container: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: 'darkslategrey',
+        justifyContent: 'center',
+        marginHorizontal: 24,
+      },
 
 })
 

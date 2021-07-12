@@ -71,8 +71,11 @@ export default function ScreenHome({navigation, route}) {
   
   return (
       <View style={styles.container}>
-        <Button onPress={()=>{navigation.navigate('ScreenProfile')}} title="Perfil"/>
-        <Button onPress={()=>{navigation.navigate('ScreenAutoAlquilado')}} title="Auto Alquilado"/>
+        <View style={styles.column}>
+          <Text style={styles.enviar} onPress={()=>{navigation.navigate('ScreenProfile')}} title="Perfil"> Perfil </Text>
+          <Text style={styles.enviar} onPress={()=>{navigation.navigate('ScreenAutoAlquilado')}} title="Auto Alquilado"> Terminar Alquiler </Text>
+        </View>
+        
         <Text style={styles.title}>Nuestros Estacionamientos</Text>
         <StatusBar style='Estacionamientos'/>
 
@@ -84,9 +87,7 @@ export default function ScreenHome({navigation, route}) {
           image={estacionamiento.image} 
           location={estacionamiento.location} 
           description={estacionamiento.description} />
-        ))}
-          
-          <Button onPress={()=>{navigation.navigate('ScreenFavoritos')}} title="Favoritos"/>        
+        ))}   
         </View>
   );}
 
@@ -97,13 +98,22 @@ export default function ScreenHome({navigation, route}) {
       alignItems: 'center',
       justifyContent: 'center',
     },
-  
+    column:{
+      flexDirection: 'row',
+      marginTop: 10,
+      marginBottom: 10,
+    },
     foto: {
       width: 350,
       height: 200
     },
   
-    title: { fontSize: 30 },
+    title: { 
+      fontSize: 25,
+      fontWeight: "bold",
+      color: 'darksalmon',
+      marginEnd: 10
+    },
   
     touchable: {
       fontSize: 12,
@@ -111,8 +121,21 @@ export default function ScreenHome({navigation, route}) {
       margin: 10,
       padding: 5
     },
-  
     buttonText: {
       color: '#fff'
-    }
+    },
+    enviar: {
+      width: 100,
+      height: 50,
+      margin: 10,
+      alignItems: 'center',
+      alignContent: 'center',
+      textAlign: 'center',
+      backgroundColor: 'dodgerblue',
+      borderColor: "dodgerblue",
+      color: 'white',
+      borderWidth: 2.5,
+      borderRadius: 15,
+      fontWeight: 'bold'
+    },
   });

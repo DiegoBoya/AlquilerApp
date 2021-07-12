@@ -14,8 +14,6 @@ export default function ScreenDetallesDelAuto({navigation, route}) {
     <View>
         {console.log(devolverUsuario())}
         {console.log(route.params.auto)}
-
-        <Text>Dale que se alquilaaaaa!!</Text>
         
         <DetallesDelAuto navigation={navigation} auto={route.params.auto} />
 

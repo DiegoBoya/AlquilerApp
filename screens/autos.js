@@ -51,8 +51,8 @@ export default function ScreenAutos({navigation, route}) {
   return (    
   <View style={styles.container}>
       {console.log(devolverUsuario())}
-    <Text style={styles.title}> Hola ,Viaja como quieras ^-^ </Text>
-    <StatusBar style="auto" />
+    <View style={styles.select}> 
+
     <RNPickerSelect
             onValueChange={(value) => setDrop(value)} 
             items={dropdown.map(
@@ -65,25 +65,16 @@ export default function ScreenAutos({navigation, route}) {
               
         />
 
-    <Button
-      title="primerBoton"
-      color="red"
-      onPress={() => alert('boton comun')}
-    />
 
-    <TouchableOpacity
-      onPress={() => alert('el touchable')}
-      style={styles.touchable}
-    >
-      <Text style={styles.buttonText}> el touchable </Text>
-    </TouchableOpacity>
+    </View>
+    
 
     {console.log(Drop)}
     
     {
       (Drop === null || Drop === "Select an item...") ? (
         autos.map(auto => auto.estado === "Disponible" ? (
-          <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} navigation={navigation} />): <Text> No hay autos </Text>)
+          <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} navigation={navigation} />): <Text> </Text>)
       ) : (autos.map(auto => auto.estado === "Disponible" && Drop === auto.modelo ? (
         <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} navigation={navigation} />) : <Text>  </Text>))    
     }
@@ -96,26 +87,18 @@ export default function ScreenAutos({navigation, route}) {
     const styles = StyleSheet.create({
         container: {
           flex: 1,
-          backgroundColor: 'yellow',
+          backgroundColor: 'darkslategrey',
           alignItems: 'center',
           justifyContent: 'center',
         },
-      
+        select: {
+          alignContent: 'center',
+          alignItems: 'center'
+        },
         foto: {
           width: 350,
           height: 200
         },
-      
         title: { fontSize: 30 },
-      
-        touchable: {
-          fontSize: 12,
-          backgroundColor: 'black',
-          margin: 10,
-          padding: 5
-        },
-      
-        buttonText: {
-          color: '#fff'
-        }
+            
       });

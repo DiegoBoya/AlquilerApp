@@ -38,33 +38,31 @@ const DetallesDelAuto = ({ navigation, auto}) => {
     return (
         <View>
             
-            <Text style={styles.title}> Revise los datos antes de concretar el alquiler: </Text>
-     {/* 
-            <Text> DATOS DE USUARIO: </Text>
-            <Text> {user.firstName} </Text>
-            <Text> {user.lastName} </Text>
-            <Text> {user.document} </Text>
-            <Text> {user.mail} </Text>
-            <Text> {user.username} </Text>
+            <Text style={styles.title}> Revise los datos antes de alquilar: </Text>
+      
+            <Text style={styles.datos}> DATOS DE USUARIO: </Text>
+            <Text style={styles.subtitle}> {"Nombre: " + user.firstName} </Text>
+            <Text style={styles.subtitle}> {"Apellido: " + user.lastName} </Text>
+            <Text style={styles.subtitle}> {"DNI: " + user.document} </Text>
+            <Text style={styles.subtitle}> {"Mail: " + user.mail} </Text>
+            <Text style={styles.subtitle}> {"UserName: " + user.username} </Text>
 
-            <Text> DATOS DEL AUTO: </Text>
-            <Text> {user.firstName} </Text>
-            <Text> {user.lastName} </Text>
-            <Text> {user.document} </Text>
-            <Text> {user.mail} </Text>
-            <Text> {user.username} </Text>
-            <CheckBox> jejejejeje </CheckBox>
-            <CheckBox checked={checkBoxState} onClick={setCheckBoxState(!checkBoxState)}> jejejejeje </CheckBox>
-            <CheckBox> popo </CheckBox>
-     */}       
+            <Text style={styles.datos}> DATOS DEL AUTO: </Text>
+            <Text style={styles.subtitle}> {"Marca: " + auto.marca} </Text>
+            <Text style={styles.subtitle}> {"Modelo: " + auto.modelo} </Text>
+            <Text style={styles.subtitle}> {"Año: " + auto.año} </Text>
+            
 
+            <View style={styles.container}>
 
-            <Text> </Text>
-            {/*{console.log(user._id)} */}
-            <Button onPress={()=>{
-                alquilarAuto();
-                navigation.navigate('ScreenAutoAlquilado')
-                }} title="Alquilar Ahora!"/>
+            <Text style={styles.enviar} onPress={()=>{
+                alquilarAuto();navigation.navigate('ScreenProfile')
+                }} 
+                title="Alquilar Ahora!"> Alquilar Ahora </Text>
+            </View>
+            
+           
+            
 
         </View >
     );
@@ -72,17 +70,60 @@ const DetallesDelAuto = ({ navigation, auto}) => {
 
 
 const styles = StyleSheet.create({
-    
-    title: { fontSize: 30 },
-    subtitle: { fontSize: 10 },
-
-    borde: {
-        borderWidth: 2,
-        borderRadius: 30,
-
+    container: {
+      alignContent: 'center',
+      alignItems: 'center'
     },
-
-})
+    foto: {
+      width: 350,
+      height: 200,
+      alignItems: 'center',
+      alignContent: 'center',
+      marginTop: 25
+    },
+    column:{
+      flexDirection: 'row',
+      marginTop: 10,
+      marginBottom: 10,
+      alignItems: 'center',
+      alignContent: 'center'
+    },
+    title: { 
+      fontSize: 20,
+      color: 'darkslategrey',
+      margin: 10
+    },
+    datos: {
+        fontSize: 17,
+        color: 'darkslategrey',
+        margin: 10,
+        fontWeight: 'bold'
+    },
+    enviar: {
+      width: 300,
+      height: 25,
+      alignItems: 'center',
+      textAlign: 'center',
+      backgroundColor: 'dodgerblue',
+      borderColor: "dodgerblue",
+      color: 'white',
+      borderWidth: 2,
+      borderRadius: 30,
+      marginTop: 5,
+      marginBottom: 10,
+      fontWeight: 'bold'
+    },
+    subtitle: { 
+      fontSize: 14,
+      color: 'darkslategrey', 
+      alignContent: 'center',
+      alignItems: 'center',
+      margintop: 7,
+      marginBottom: 7,
+      marginLeft: 10
+  
+    },
+  })
 
 export default DetallesDelAuto;
 

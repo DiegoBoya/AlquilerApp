@@ -22,13 +22,21 @@ const Auto = ({ marca, modelo, año, imagen, id, navigation }) => {
         />
 
       <Text style={styles.title}> {modelo} </Text>
+      <View style={styles.column}>
       <Text style={styles.subtitle}> {marca + " | "+ año}  </Text>
       
       <Favorito idAuto={id}/>
 
-      <Button onPress={()=>{
+
+      </View>
+      <View style={styles.container}>
+      <Text style={styles.enviar} onPress={()=>{
                 navigation.navigate('ScreenDetallesDelAuto', {auto: miAuto})
-                }} title="Alquilar Ahora!"/>
+                }} title="Alquilar Ahora!">
+        Alquilar Ahora!
+      </Text>
+      </View>
+      
 
     </View >
   );
@@ -36,33 +44,56 @@ const Auto = ({ marca, modelo, año, imagen, id, navigation }) => {
 
 
 const styles = StyleSheet.create({
+  container: {
+    alignContent: 'center',
+    alignItems: 'center'
+  },
   foto: {
     width: 350,
     height: 200,
     alignItems: 'center',
     alignContent: 'center',
     marginTop: 25
+  },
+  column:{
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    alignContent: 'center'
+  },
+  title: { 
+    fontSize: 30,
+    color: 'white'
+  },
+  enviar: {
+    width: 300,
+    height: 25,
+    alignItems: 'center',
+    textAlign: 'center',
+    backgroundColor: 'dodgerblue',
+    borderColor: "dodgerblue",
+    color: 'white',
+    borderWidth: 2,
+    borderRadius: 30,
+    marginTop: 5,
+    fontWeight: 'bold'
+  },
+  subtitle: { 
+    fontSize: 24,
+    color: 'white', 
+    alignContent: 'center',
+    alignItems: 'center'
 
   },
-  title: { fontSize: 30 },
-
-  subtitle: { fontSize: 24 },
 
   borde: {
     borderWidth: 2,
     borderRadius: 30,
+    color: 'darkSalmon'
 
   }
-  /*
-    favoriteButton: {
-      backgroundColor: 'pink',
-      color: 'white',
-      marginHorizontal: 200,
-      //padding: 10,
-      margin : 10,
-      borderRadius: 25
-    }
-  */
+  
 })
 
 export default Auto;

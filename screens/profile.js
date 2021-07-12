@@ -14,8 +14,13 @@ export default function ScreenProfile({navigation}) {
     <View style={styles.container}>
         <Text style={styles.text}>Nombre: {`${user.firstName}`}</Text>
         <Text style={styles.text}>Apellido: {`${user.lastName}`}</Text>
-        <Button style={styles.boton} onPress={()=>{navigation.push('ScreenFavoritos')}} title="Favoritos"/>
-        <Button style={styles.boton} onPress={()=>{navigation.push('ScreenHome')}} title="Home"/>
+
+        <View style={styles.column}>
+          <Text style={styles.enviar} onPress={()=>{navigation.push('ScreenFavoritos')}} title="Favoritos">Favoritos</Text>
+          <Text style={styles.enviar} onPress={()=>{navigation.push('ScreenHome')}} title="Home">Home</Text>
+
+        </View>
+       
     </View>
         
   );}
@@ -27,66 +32,37 @@ export default function ScreenProfile({navigation}) {
       alignItems: 'center',
       justifyContent: 'center',
     },
-  
-    foto: {
-      width: 350,
-      height: 200
+    column:{
+      flexDirection: 'row',
+      marginTop: 10,
+      marginBottom: 10,
+      alignItems: 'center',
+      alignContent: 'center'
     },
-  
-    title: { fontSize: 30 },
-  
-    touchable: {
-      fontSize: 12,
-      backgroundColor: 'black',
+    enviar: {
+      width: 100,
+      height: 25,
       margin: 10,
-      padding: 5
+      alignItems: 'center',
+      alignContent: 'center',
+      textAlign: 'center',
+      backgroundColor: 'dodgerblue',
+      borderColor: "dodgerblue",
+      color: 'white',
+      borderWidth: 2.5,
+      borderRadius: 15,
+      fontWeight: 'bold'
     },
-  
-    buttonText: {
-      color: '#fff'
-    },
-
-    shortText: {
-      fontSize: 14,
-      fontStyle: 'italic'
-    },
-    subtitle: { 
-        fontSize: 24,
-        alignItems: 'center',
-        alignContent: 'center',
-        color:'white',
-        fontWeight: 'bold'
-      },
-      text : {
-        width: 200,
-        height: 50,
-        alignItems: 'center',
-        textAlign: 'center',
-        margin: 10,
-        backgroundColor: 'darkslategrey',
-        borderColor: "darksalmon",
-        color: 'white',
-        borderWidth: 5,
-        borderRadius: 30,
-      },
-      boton: {
-        width: 200,
-        color: 'red',
-        margin: 10,
-        alignItems: 'center',
-        textAlign: 'center',
-      },
-      enviar: {
-        width: 100,
-        height: 25,
-        margin: 10,
-        alignItems: 'center',
-        textAlign: 'center',
-        backgroundColor: 'dodgerblue',
-        borderColor: "dodgerblue",
-        color: 'white',
-        borderWidth: 2.5,
-        borderRadius: 15,
-        fontWeight: 'bold'
-      }
+    text : {
+          width: 200,
+          height: 50,
+          alignItems: 'center',
+          textAlign: 'center',
+          margin: 10,
+          backgroundColor: 'darkslategrey',
+          borderColor: "darksalmon",
+          color: 'white',
+          borderWidth: 5,
+          borderRadius: 30,
+        },
   });
