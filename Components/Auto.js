@@ -8,11 +8,21 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Auto = ({ marca, modelo, año, imagen, id, navigation }) => {
   const Stack = createStackNavigator();
+  const { devolverUsuario } = useContext(AuthContext)
   const miAuto = { marca: marca,
                    modelo: modelo,
                    año:año,
                    imagen:imagen , 
                    id: id};
+  const usuario = devolverUsuario(); 
+  const alquilar = () => {
+    if(usuario.auto.length > 0){
+      alert('Ya tiene auto alquilado');
+    } else {
+      navigation.navigate('ScreenDetallesDelAuto', {auto: miAuto})
+    }
+  }
+
 
   return (
     <View style={styles.borde}>
@@ -31,7 +41,7 @@ const Auto = ({ marca, modelo, año, imagen, id, navigation }) => {
       </View>
       <View style={styles.container}>
       <Text style={styles.enviar} onPress={()=>{
-                navigation.navigate('ScreenDetallesDelAuto', {auto: miAuto})
+                alquilar()
                 }} title="Alquilar Ahora!">
         Alquilar Ahora!
       </Text>

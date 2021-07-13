@@ -13,11 +13,16 @@ import RNPickerSelect from 'react-native-picker-select';
 import {AuthContext} from '../Components/Context';
 
 export default function ScreenAutos({navigation, route}) {
-  const{ devolverUsuario } = useContext(AuthContext);
   const Stack = createStackNavigator();
   const [autos, setAutos] = useState([]);
+  const [isLoading , setIsLoading] = useState(true);
   const [Drop, setDrop] = useState('');
+  const { updateUser, devolverUsuario } = useContext(AuthContext);
+  
+  const usuario = devolverUsuario();
+  
   console.log(route)
+  
   async function buscarAutos() {
     const token = await AsyncStorage.getItem('token');
     const requestOptions = {
@@ -39,9 +44,40 @@ export default function ScreenAutos({navigation, route}) {
     }catch(error){console.log(error.message);}
   }
 
-  useEffect(() => {
+  async function getUsuario() {
+    const token = await AsyncStorage.getItem('token');
+    const requestOptions = {
+      method: "GET",
+      headers: {Authorization: token} 
+    }
+    try {
+      const user = fetch(`http://localhost:3000/api/users/${usuario._id}`, requestOptions);
+      return user
+      .then(res => res.json())
+      .then(json => {
+        updateUser(json);
+      })
+      .catch(error => console.log('Ocurrio el error: ' + error)); 
+    }catch(error){console.log(error.message);} 
+  }
+
+  useEffect(() =>{
+    console.log('buscarAutos()');    
+    console.log('getUsuario()');
+    getUsuario();
+    setTimeout(()=>{
     buscarAutos();
+    setIsLoading(false);
+    },1000);
   }, []);
+
+
+  if( isLoading ){
+    return(
+      <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
+        <Text>Loading...</Text>
+      </View>
+    );}
 
   const dropdown = Array.from(new Set(autos));
   
