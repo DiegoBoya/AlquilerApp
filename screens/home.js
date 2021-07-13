@@ -86,7 +86,8 @@ export default function ScreenHome({navigation, route}) {
           name={estacionamiento.name} 
           image={estacionamiento.image} 
           location={estacionamiento.location} 
-          description={estacionamiento.description} />
+          description={estacionamiento.description}
+          cantAutos={estacionamiento.auto.length} />
         ))}   
         </View>
   );}
