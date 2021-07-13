@@ -18,8 +18,8 @@ export default function ScreenAutos({navigation, route}) {
   const [isLoading , setIsLoading] = useState(true);
   const [Drop, setDrop] = useState('');
   const { updateUser, devolverUsuario } = useContext(AuthContext);
-  
   const usuario = devolverUsuario();
+  let visible = true;
   
   console.log(route)
   
@@ -42,6 +42,18 @@ export default function ScreenAutos({navigation, route}) {
       })
       .catch(error => console.log('Ocurrio un error' + error));
     }catch(error){console.log(error.message);}
+  }
+
+  function definoVisible(id){
+    let trueFalse = true;
+    usuario.favoritos.forEach(fav => {
+      trueFalse ?
+      fav._id == id ?
+      trueFalse = false :
+      trueFalse = true
+      : console.log('Ya encontrado');
+  });
+  return trueFalse;
   }
 
   async function getUsuario() {
@@ -68,13 +80,13 @@ export default function ScreenAutos({navigation, route}) {
     setTimeout(()=>{
     buscarAutos();
     setIsLoading(false);
-    },1000);
+    },400);
   }, []);
 
 
   if( isLoading ){
     return(
-      <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
+      <View style={{flex: 1, justifyContent:'center', alignItems:'center', backgroundColor: 'darkslategrey'}}>
         <Text>Loading...</Text>
       </View>
     );}
@@ -110,9 +122,9 @@ export default function ScreenAutos({navigation, route}) {
     {
       (Drop === null || Drop === "Select an item...") ? (
         autos.map(auto => auto.estado === "Disponible" ? (
-          <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} navigation={navigation} />): <Text> </Text>)
+          <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} navigation={navigation} visible={definoVisible(auto._id)} />): <Text> </Text>)
       ) : (autos.map(auto => auto.estado === "Disponible" && Drop === auto.modelo ? (
-        <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} navigation={navigation} />) : <Text>  </Text>))    
+        <Auto key={auto._id} modelo={auto.modelo} marca={auto.marca} año={auto.año} imagen={auto.imagen} id={auto._id} navigation={navigation} visible={definoVisible(auto._id)} />) : <Text>  </Text>))    
     }
       
 

@@ -85,7 +85,7 @@ export default function App() {
     },
     desconectar: ()=>{
       setUserToken(null);
-      setIsLoading(false);
+      setUser(null);
     }
 
   }));

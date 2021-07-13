@@ -6,7 +6,7 @@ import Favorito from './Favorito';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
-const Auto = ({ marca, modelo, año, imagen, id, navigation }) => {
+const Auto = ({ marca, modelo, año, imagen, id, navigation , visible}) => {
   const Stack = createStackNavigator();
   const { devolverUsuario } = useContext(AuthContext)
   const miAuto = { marca: marca,
@@ -15,6 +15,8 @@ const Auto = ({ marca, modelo, año, imagen, id, navigation }) => {
                    imagen:imagen , 
                    id: id};
   const usuario = devolverUsuario(); 
+
+
   const alquilar = () => {
     if(usuario.auto.length > 0){
       alert('Ya tiene auto alquilado');
@@ -23,6 +25,7 @@ const Auto = ({ marca, modelo, año, imagen, id, navigation }) => {
     }
   }
 
+  useEffect(()=>{console.log('valorVisible en Auto: ' + visible)},[])
 
   return (
     <View style={styles.borde}>
@@ -35,7 +38,7 @@ const Auto = ({ marca, modelo, año, imagen, id, navigation }) => {
       <View style={styles.column}>
       <Text style={styles.subtitle}> {marca + " | "+ año}  </Text>
       
-      <Favorito idAuto={id}/>
+      <Favorito idAuto={id} visible={visible}/>
 
 
       </View>
