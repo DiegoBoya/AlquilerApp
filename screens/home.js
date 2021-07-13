@@ -59,12 +59,12 @@ export default function ScreenHome({navigation, route}) {
     getUsuario();
     setTimeout(()=>{
       setIsLoading(false);
-    }, 1500)
+    }, 1000)
   }, []);
 
   if( isLoading ){
     return(
-      <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
+      <View style={{flex: 1, justifyContent:'center', alignItems:'center', backgroundColor: 'darkslategrey'}}>
         <Text>Loading...</Text>
       </View>
     );}

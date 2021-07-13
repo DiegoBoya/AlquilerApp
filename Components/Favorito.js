@@ -3,14 +3,12 @@ import { useState, useEffect, useContext } from 'react';
 import React from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import {AuthContext} from './Context';
-import { forEach } from 'async';
 
-const Favorito = (idAuto) => {
-    const [visible, setVisible] = useState(true);
+const Favorito = ({idAuto , visible}) => {
     const {devolverUsuario} = useContext(AuthContext);
     const user = devolverUsuario();
     const [estadoRes, setEstadoRes] = useState();
-    //el valor inicialdeberia ser false.. despues del setVisible hay que capturar con un then??
+    const [boton, setBoton] = useState(visible);
 
     const pressFav =  async () => {
         let flag = false;
@@ -22,15 +20,13 @@ const Favorito = (idAuto) => {
                 Accept: '*',
                 Authorization: token
             },
-            body: JSON.stringify({autoID: idAuto.idAuto})
+            body: JSON.stringify({autoID: idAuto})
         };
-        console.log('Auto: ' + (idAuto.idAuto));
-        console.log('User: ' + JSON.stringify(user));
-        if (visible == true) {
+        if (boton == true) {
             try{
                 await fetch(`http://localhost:3000/api/users/addToFavorites/${user._id}` , requestOptions)
                 .then(res => res.json())
-                .then(json => {setEstadoRes(json.message); console.log(json.message)})
+                .then(json => {setEstadoRes(json.message); console.log(json)})
                 alert('Success');
             }catch(error){
                 flag = true;
@@ -41,7 +37,7 @@ const Favorito = (idAuto) => {
             try{
                 await fetch(`http://localhost:3000/api/users/removeFromFavorites/${user._id}` , requestOptions)
                 .then(res => res.json())
-                .then(json => {setEstadoRes(json.message); console.log(json.message)})
+                .then(json => {setEstadoRes(json.message); console.log(json)})
                 alert('Success');
             }catch(error){
                 flag = true;
@@ -49,20 +45,16 @@ const Favorito = (idAuto) => {
                 alert('Failed');
             }
         }
-        status == 200 ? alert('Success') : console.log('fallo: ' + status);
-        flag ? console.log('siga') : setVisible(!visible);
+        flag ? console.log('siga') : setBoton(!boton);
     }
+
     useEffect(() => {
-        user.favoritos.forEach(fav => {
-            console.log("id: " + fav._id);
-            fav._id == idAuto.idAuto ? 
-            setVisible(false) :
-            setVisible(true)});
+        console.log('valor visible en Favoritos: ' + visible)
     }, [])
 
     return (
         <View  style={styles.favoriteButton}>
-            {visible?
+            {boton?
                 <Button
                     onPress={pressFav}
                     styles={styles.colorTrue}
