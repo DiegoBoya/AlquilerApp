@@ -84,7 +84,7 @@ export default function ScreenFavoritos({navigation}) {
     getFavoritos();
     setTimeout(()=>{
       setIsLoading(false);
-    }, 400)
+    }, 1000)
   }, [])
 
   if(isLoading){
@@ -122,7 +122,7 @@ export default function ScreenFavoritos({navigation}) {
             )}
               
         />
-        {(Drop == '' || Drop === "Select an item...") ? (
+        {(Drop === '' || Drop === "Select an item...") ? (
         favsOrdered.map(favorito => favorito.estado === "Disponible" ? (
           <Auto
           key={favorito._id}

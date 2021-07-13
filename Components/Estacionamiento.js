@@ -4,7 +4,7 @@ import Favorito from './Favorito';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
-const Estacionamiento = ({ navigation, id, name, image, location, description }) => {
+const Estacionamiento = ({ navigation, id, name, image, location, description, cantAutos }) => {
     const Stack = createStackNavigator();
     return (
         <View style={styles.borde}>
@@ -16,7 +16,7 @@ const Estacionamiento = ({ navigation, id, name, image, location, description })
             </View>
 
             <Text style={styles.title}> {name} </Text>
-            <Text style={styles.subtitle}> {location} </Text>
+            <Text style={styles.subtitle}> {location + " | Cantidad de Autos: " + cantAutos} </Text>
             <Text style={styles.text}> {description} </Text>
             <View style={styles.container}> 
                 <Text style={styles.enviar} onPress={()=>{navigation.navigate('ScreenAutos', {_id: id})}} title='Autos'> Autos </Text>
