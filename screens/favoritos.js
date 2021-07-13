@@ -122,7 +122,7 @@ export default function ScreenFavoritos({navigation}) {
             )}
               
         />
-        {(Drop == null || Drop === "Select an item...") ? (
+        {(Drop == '' || Drop === "Select an item...") ? (
         favsOrdered.map(favorito => favorito.estado === "Disponible" ? (
           <Auto
           key={favorito._id}

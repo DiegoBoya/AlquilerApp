@@ -15,8 +15,10 @@ const Login = () => {
       <Text style={styles.subtitle}>Login!</Text>
       <TextInput style={styles.text} placeholder='username' onChangeText={username => setUsername(username)} defaultValue={username}/>
       <TextInput style={styles.text} placeholder='password' secureTextEntry={true} onChangeText={password => setPassword(password)} defaultValue={password}/>
-      <Text style={styles.textShort}>Recordar Usuario?</Text>
-      <CheckBox value={rememberMe} onValueChange={setRememberMe}/>
+      <View style={styles.containerCheck}>
+        <CheckBox value={rememberMe} onValueChange={setRememberMe}/>
+        <Text style={styles.textShort}>Recordar Usuario?</Text>
+      </View>
       <Text style={styles.enviar} onPress={()=> {login(username, password, rememberMe)}} title='Send'> SEND </Text>
     </View>
   );
@@ -60,6 +62,13 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderRadius: 30,
   },
+  containerCheck: {
+    width: 200,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row'
+  },
   boton: {
     width: 200,
     color: 'red',
@@ -82,7 +91,7 @@ const styles = StyleSheet.create({
   },
   textShort:{
     color: '#ffff',
-    fontStyle: 'italic',
+    fontStyle: 'normal',
     fontSize: 14
   }
 /*  borde: {
