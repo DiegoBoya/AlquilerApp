@@ -32,7 +32,7 @@ export default function ScreenLogin({navigation}) {
           <View style={{flex:1 , alignItems:'center'}}>
             <Login/>
           <View style={styles.fixToText}>
-            <Button title="Skip" onPress={toggleModal} />
+            <Button title="Close" onPress={toggleModal} />
           </View>
         </View>
       </Modal>
