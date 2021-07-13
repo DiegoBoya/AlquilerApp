@@ -6,6 +6,7 @@ import {AuthContext} from '../Components/Context';
 import AsyncStorage from '@react-native-community/async-storage';
 import Auto from '../Components/Auto';
 import AutoFavorito from '../Components/AutoFavorito';
+import RNPickerSelect from 'react-native-picker-select';
 
 
 export default function ScreenFavoritos({navigation}) {
@@ -15,6 +16,7 @@ export default function ScreenFavoritos({navigation}) {
   const user = devolverUsuario();
   const finFavs = [];  
   const [isLoading, setIsLoading] = useState(true);
+  const [Drop, setDrop] = useState('');
 
   function definoVisible(id){
     let trueFalse = true;
@@ -105,9 +107,23 @@ export default function ScreenFavoritos({navigation}) {
     </View>
         
   );}
+
+    const dropdown = Array.from(new Set(favsOrdered));
     return(
       <View style={styles.container}>
-        {favsOrdered.map(favorito => favorito.estado === "Disponible" ? (
+        <RNPickerSelect
+            onValueChange={(value) => setDrop(value)} 
+            items={dropdown.map(
+              fav => (
+                {
+                  label: fav.modelo,
+                  value: fav.modelo
+                })
+            )}
+              
+        />
+        {(Drop == null || Drop === "Select an item...") ? (
+        favsOrdered.map(favorito => favorito.estado === "Disponible" ? (
           <Auto
           key={favorito._id}
           modelo={favorito.modelo}
@@ -128,7 +144,30 @@ export default function ScreenFavoritos({navigation}) {
           id={favorito._id}
           visible={definoVisible(favorito._id)}
           />
-        ))}
+        ))):
+        (favsOrdered.map(favorito => favorito.modelo === Drop ? (
+          favorito.estado == "Disponible" ? (
+          <Auto
+          key={favorito._id}
+          modelo={favorito.modelo}
+          marca={favorito.marca}
+          año={favorito.año}
+          imagen={favorito.imagen}
+          id={favorito._id}
+          navigation={navigation}
+          visible={definoVisible(favorito._id)}
+          />
+        ) : (
+          <AutoFavorito
+          key={favorito._id}
+          modelo={favorito.modelo}
+          marca={favorito.marca}
+          año={favorito.año}
+          imagen={favorito.imagen}
+          id={favorito._id}
+          visible={definoVisible(favorito._id)}
+          />
+        )) : (<Text> </Text>)))}
       </View>
     )
 }
